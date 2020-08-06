@@ -13,6 +13,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Working_Bot.Utils;
 
 namespace Working_Bot.Commands 
 {
@@ -35,7 +36,7 @@ namespace Working_Bot.Commands
 		[Command("APOD"), Description("Gets the Astronomy Picture Of the Day from NASA")]
 		public async Task APOD(CommandContext ctx, [Description("Please provide the year as 4 digits")] int? givenYear = null, [Description("Please provide the month as either 2 digits or 1 digit")] int? givenMonth = null, [Description("Please provide the day as either 2 digits or 1 digit")] int? givenDay = null)
 		{
-
+			var apiURL = "https://api.nasa.gov/planetary/apod";
 			var json = string.Empty;
 
 			using (var fs = File.OpenRead("config.json"))
@@ -46,7 +47,7 @@ namespace Working_Bot.Commands
 
 			DateTime myDate = default;
 			DateTime givenDate = default;
-			string apiURL = "https://api.nasa.gov/planetary/apod", apiKey = "?api_key=" + configJson.NASAApiKey, apiURLExt = null;
+			string apiURL = apiURL, apiKey = "?api_key=" + configJson.NASAApiKey, apiURLExt = null;
 
 			if (givenYear == null && givenMonth == null && givenDay == null)
 			{
@@ -123,7 +124,6 @@ namespace Working_Bot.Commands
 			{
 				Console.WriteLine(e.Message);
 			}
-
 
 		}
 
@@ -208,9 +208,9 @@ namespace Working_Bot.Commands
 			{
 				try
 				{
-					int numberGiven = int.Parse(givenNumber);
+					long numberGiven = long.Parse(givenNumber);
 
-					if (numberGiven >= 0)
+					if (numberGiven >= 0 && numberGiven <= 2_147_483_647)
 					{
 						apiNumber = numberGiven.ToString();
 					} else if (numberGiven < 0)
