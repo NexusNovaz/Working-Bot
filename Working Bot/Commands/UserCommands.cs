@@ -6,7 +6,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -67,7 +66,6 @@ namespace Working_Bot.Commands
 				Debug.Write("Something Fucked Up :/");
 			}
 			
-
 			var footer = "The website updates every day, check back tomorrow for a new one!\nRequest Remaining for the hour: ";
 
 			Random rnd = new Random();
@@ -123,8 +121,6 @@ namespace Working_Bot.Commands
 			{
 				Console.WriteLine(e.Message);
 			}
-
-
 		}
 
 		[Command("Joke"), Description("Will tell you a joke")]
@@ -319,7 +315,6 @@ namespace Working_Bot.Commands
 			{
 				Console.WriteLine(e.Message);
 			}
-
 
 		}
 
