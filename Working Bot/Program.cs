@@ -9,6 +9,7 @@ using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using Newtonsoft.Json;
 using Working_Bot.Commands;
+using Working_Bot.Utils;
 
 namespace Working_Bot
 {
@@ -17,12 +18,24 @@ namespace Working_Bot
 
 		public DiscordClient Client { get; private set; }
         public CommandsNextExtension Commands { get; set; }
-		
 
 		static void Main(string[] args)
 		{
-			var prog = new Program();
-			prog.RunBotAsync().GetAwaiter().GetResult();
+
+			if(File.Exists("config.json"))
+			{
+				Console.WriteLine("Found Config File. Hoping its all good!");
+
+				var prog = new Program();
+				prog.RunBotAsync().GetAwaiter().GetResult();
+			} else if (!File.Exists("config.json"))
+			{
+				Console.WriteLine("------------------------------\nNo Config File Found!!!!\nGenerating One Now\nFill it with the data before running the program again!\n---------------");
+				MakeConfigFile.GenerateConfigFile();
+				Console.ReadLine();
+			}
+
+			
 
 		}
 
